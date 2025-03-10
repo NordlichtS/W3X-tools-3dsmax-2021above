@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="uri:ea.com:eala:asset" xmlns:at="uri:ea.com:eala:asset:type" xmlns:xas="uri:ea.com:eala:asset:schema" targetNamespace="uri:ea.com:eala:asset" elementFormDefault="qualified" xmlns:XmlEdit="http://tempuri.org/XmlEdit.xsd">
+
+  <xs:complexType name="BaseRenderAssetType" abstract="true" xas:runtimeWrapper="Sage::Render::BaseRenderObjectFactory" xas:typeGroup="Xml">
+    <xs:complexContent>
+      <xs:extension base="BaseAssetType"/>
+     </xs:complexContent>
+  </xs:complexType>
+
+	<!-- Generic support types -->
+	<xs:complexType name="W3DVector2">
+		<xs:annotation>
+			<xs:documentation>2d vector, float precis</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="X" type="xs:float" use="required" />
+		<xs:attribute name="Y" type="xs:float" use="required" />
+	</xs:complexType>
+	<xs:complexType name="W3DVector3">
+		<xs:annotation>
+			<xs:documentation>3d vector, float precis</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="X" type="xs:float" use="required" />
+		<xs:attribute name="Y" type="xs:float" use="required" />
+		<xs:attribute name="Z" type="xs:float" use="required" />
+	</xs:complexType>
+	<xs:complexType name="W3DVector4">
+		<xs:annotation>
+			<xs:documentation>4d vector, float precis</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="X" type="xs:float" use="required" />
+		<xs:attribute name="Y" type="xs:float" use="required" />
+		<xs:attribute name="Z" type="xs:float" use="required" />
+		<xs:attribute name="W" type="xs:float" use="required" />
+	</xs:complexType>
+	<xs:complexType name="W3DQuaternion">
+		<xs:annotation>
+			<xs:documentation>quaternion</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="X" type="xs:float" use="required" />
+		<xs:attribute name="Y" type="xs:float" use="required" />
+		<xs:attribute name="Z" type="xs:float" use="required" />
+		<xs:attribute name="W" type="xs:float" use="required" />
+	</xs:complexType>
+	
+
+
+	<!-- W3DHierarchy -->
+	<xs:complexType name="W3DHierarchy" xas:typeGroup="Xml" xas:runtimeWrapper="Sage::Render::W3DHierarchyWrapper">
+		<xs:complexContent>
+			<xs:extension base="BaseAssetType">
+				<xs:annotation>
+					<xs:documentation>CHUNK_HIERARCHY_*</xs:documentation>
+				</xs:annotation>
+				<xs:sequence>
+					<xs:element name="Pivot" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Translation" type="W3DVector3" />
+								<xs:element name="Rotation" type="W3DQuaternion" />
+								<xs:element name="FixupMatrix">
+									<xs:complexType>
+										<xs:sequence></xs:sequence>
+										<xs:attribute name="M00" type="xs:float" />
+										<xs:attribute name="M10" type="xs:float" />
+										<xs:attribute name="M20" type="xs:float" />
+										<xs:attribute name="M30" type="xs:float" />
+										<xs:attribute name="M01" type="xs:float" />
+										<xs:attribute name="M11" type="xs:float" />
+										<xs:attribute name="M21" type="xs:float" />
+										<xs:attribute name="M31" type="xs:float" />
+										<xs:attribute name="M02" type="xs:float" />
+										<xs:attribute name="M12" type="xs:float" />
+										<xs:attribute name="M22" type="xs:float" />
+										<xs:attribute name="M32" type="xs:float" />
+										<xs:attribute name="M03" type="xs:float" />
+										<xs:attribute name="M13" type="xs:float" />
+										<xs:attribute name="M23" type="xs:float" />
+										<xs:attribute name="M33" type="xs:float" />
+									</xs:complexType>
+								</xs:element>
+              </xs:sequence>
+              <xs:attribute name="Name" type="Poid" xas:refType="Pivot" />
+							<xs:attribute name="Parent" type="xs:int" />
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
+	
